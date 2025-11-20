@@ -1,28 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Sycamore Lookbook</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta charset="utf-8">
+  <meta charset="utf-8" />
+  <title>Lookbook viewer</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
 </head>
 <body style="margin:0; background:#333;">
 
-    <div class="flip-book-container"
-         src="pdf/amf_Jewelry_LookBook_JPN.pdf"
-         style="width:100%; height:100vh;">
-    </div>
+  <div class="flip-book-container"
+       src="pdf/amf_Jewelry_LookBook_JPN.pdf"
+       style="width:100%; height:100vh;">
+  </div>
 
-    <script src="js/libs/jquery.min.js"></script>
-    <script src="js/libs/three.min.js"></script>
-    <script src="js/libs/pdf.min.js"></script>
-    <script src="js/libs/pdf.worker.js"></script>
-    <script src="js/libs/libs.js"></script>
-    <script src="js/libs/default-book-view.js"></script>
+  <!-- Core libraries -->
+  <script src="js/libs/jquery.min.js"></script>
+  <script src="js/libs/html2canvas.min.js"></script>
+  <script src="js/libs/three.min.js"></script>
+  <script src="js/libs/pdf.min.js"></script>
 
-    <!-- This will be corrected later if needed -->
-    <script src="js/3dflipbook.min.js"></script>
+  <!-- Tell PDF.js where the worker + cmaps are -->
+  <script>
+    window.PDFJS_LOCALE = {
+      pdfJsWorker: 'js/pdf.worker.js',
+      pdfJsCMapUrl: 'cmaps'
+    };
+  </script>
 
-    <script src="index.js"></script>
+  <!-- 3D FlipBook bundled script -->
+  <script src="js/dist/3dflipbook.min.js"></script>
+
+  <!-- Initialize the flipbook -->
+  <script>
+    jQuery(function ($) {
+      $('.flip-book-container').FlipBook({
+        pdf: 'pdf/amf_Jewelry_LookBook_JPN.pdf',
+        template: {
+          html: 'templates/default-book-view.html',
+          styles: [
+            'css/white-book-view.css'
+          ],
+          links: [{
+            rel: 'stylesheet',
+            href: 'css/font-awesome.min.css'
+          }],
+          script: 'js/default-book-view.js',
+          sounds: {
+            startFlip: 'sounds/start-flip.mp3',
+            endFlip: 'sounds/end-flip.mp3'
+          }
+        }
+      });
+    });
+  </script>
 
 </body>
 </html>
