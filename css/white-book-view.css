@@ -6,19 +6,13 @@
   font-size: 14px;
   position: relative;
   height: 100%;
-  color: #ccc; /* lighter default text */
+  color: #ccc;
 }
 .main * {
   box-sizing: border-box;
 }
-.main .hidden, .main .cmd.hidden {
-  display: none;
-}
-.main .fade {
-  opacity: 1;
-  visibility: visible;
-  transition: opacity .15s ease-in;
-}
+.main .hidden, .main .cmd.hidden { display: none; }
+.main .fade { opacity: 1; visibility: visible; transition: opacity .15s ease-in; }
 .main .hidden.fade {
   display: block;
   pointer-events: none;
@@ -33,47 +27,25 @@ a, .cmd {
   cursor: pointer;
   transition: color .15s ease-in;
 }
-a:hover, .cmd:hover {
-  color: #fff;
-}
-a.active, .cmd.active {
-  color: #fff;
-}
-a.disabled, .cmd.disabled {
-  pointer-events: none;
-  opacity: .5;
-}
-
-.hbtn a, .hbtn .cmd {
-  font-size: 52px;
-  color: #999;
-}
-.hbtn a:hover, .hbtn .cmd:hover {
-  text-shadow: 0 0 2px #fff;
-}
+a:hover, .cmd:hover { color: #fff; }
+a.active, .cmd.active { color: #fff; }
+a.disabled, .cmd.disabled { pointer-events: none; opacity: .5; }
 
 /* =========================================================
-   VIEW AREA  
+   VIEW AREA
    ========================================================= */
 .view {
   height: 100%;
   background: no-repeat 50%;
   background-size: cover;
 }
-.view.toolbar-en {
-  height: calc(100% - 38px); /* smaller toolbar height */
-}
-.view .render {
-  height: 100%;
-}
+.view.toolbar-en { height: calc(100% - 38px); }
+.view .render { height: 100%; }
 
 /* =========================================================
-   LOADER  
+   LOADER
    ========================================================= */
-@keyframes loader {
-  0% { transform: scale(1.2) }
-  100% { transform: scale(1) }
-}
+@keyframes loader { 0% { transform: scale(1.2) } 100% { transform: scale(1) } }
 .loader-box {
   position: absolute;
   left: calc(50% - 25px);
@@ -92,8 +64,7 @@ a.disabled, .cmd.disabled {
 }
 
 /* =========================================================
-   NEXT / PREVIOUS ARROWS  
-   (Clean white arrows like lion demo)
+   NEXT / PREVIOUS ARROWS (Lion Style)
    ========================================================= */
 .ctrls .prev, .ctrls .next {
   position: absolute;
@@ -106,58 +77,61 @@ a.disabled, .cmd.disabled {
 }
 .ctrls .prev { left: 20px; }
 .ctrls .next { right: 20px; }
-
-.ctrls .prev:hover,
-.ctrls .next:hover {
-  opacity: 1;
-}
+.ctrls .prev:hover, .ctrls .next:hover { opacity: 1; }
 
 /* =========================================================
-   *** MINIMAL DARK TOOLBAR (like lion demo) ***
+   MINIMAL DARK TOOLBAR (Lion Style)
    ========================================================= */
 .toolbar {
   position: absolute;
   bottom: 0;
   width: 100%;
-  height: 38px;                          /* compact */
-  background: rgba(0,0,0,0.55);          /* dark translucent */
-  backdrop-filter: blur(4px);            /* subtle blur */
+  height: 38px;
+  background: rgba(0,0,0,0.55) !important;
+  background-image: none !important;
+  backdrop-filter: blur(4px);
   padding: 0 10px;
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
-  border: none;
-  box-shadow: none;
+  border: none !important;
+  box-shadow: none !important;
 }
 
+/* Remove ALL inherited white gradients/surfaces */
+.toolbar * {
+  background-image: none !important;
+  box-shadow: none !important;
+}
+
+/* Toolbar Buttons */
 .toolbar ul, .toolbar li {
   list-style: none;
   margin: 0;
   padding: 0;
 }
-
 .buttons {
   display: inline-flex;
   align-items: center;
 }
-.buttons>li {
+.buttons > li {
   display: inline-flex;
   align-items: center;
 }
-.buttons>li>a, .buttons>li>.cmd {
+.buttons > li > a, .buttons > li > .cmd {
   padding: 6px 10px;
-  font-size: 14px;                      /* smaller icons */
+  font-size: 14px;
   color: #eee;
   opacity: 0.75;
   transition: opacity .2s ease;
 }
-.buttons>li>a:hover, .buttons>li>.cmd:hover {
+.buttons > li > a:hover, .buttons > li > .cmd:hover {
   opacity: 1;
 }
 
 /* =========================================================
-   PAGE NUMBER FIELD (minimal)
+   PAGE NUMBER (minimal)
    ========================================================= */
 .pages {
   padding: 0 10px;
@@ -169,17 +143,14 @@ a.disabled, .cmd.disabled {
   padding: 4px 0;
   text-align: center;
   color: #fff;
-  background: rgba(255,255,255,0.08); /* subtle */
+  background: rgba(255,255,255,0.08);
   border: 1px solid rgba(255,255,255,0.15);
   border-radius: 4px;
 }
-.pages .number:focus {
-  background: rgba(255,255,255,0.18);
-}
+.pages .number:focus { background: rgba(255,255,255,0.18); }
 
 /* =========================================================
-   FLOATING WINDOWS (Search, TOC, etc)
-   Dark Transparent redesign
+   FLOAT WINDOWS (Search, TOC)
    ========================================================= */
 .float-wnd {
   background: rgba(0,0,0,0.75);
@@ -197,39 +168,27 @@ a.disabled, .cmd.disabled {
 }
 
 /* =========================================================
-   THUMBNAILS (dark theme)
+   THUMBNAILS
    ========================================================= */
 .thumbnails .item:hover {
   background: rgba(255,255,255,0.05);
 }
 
 /* =========================================================
-   PAGE PROGRESS BAR (lion style — thin + red)
+   PAGE PROGRESS BAR (Lion)
    ========================================================= */
 .fb3d-progress {
   height: 3px !important;
   background: rgba(255,255,255,0.15);
 }
 .fb3d-progress-value {
-  background: #d23a3a !important; /* red indicator */
+  background: #d23a3a !important;
 }
 
 /* =========================================================
-   SEARCH RESULTS (dark)
+   SEARCH RESULTS / BOOKMARKS
    ========================================================= */
-.search .result {
-  background: rgba(255,255,255,0.03);
-}
-.search .result:hover {
-  background: rgba(255,255,255,0.08);
-}
-
-/* =========================================================
-   BOOKMARKS / TOC (dark)
-   ========================================================= */
-.bookmarks .area:hover {
-  background: rgba(255,255,255,0.08);
-}
-.bookmarks .cmd {
-  color: #fff;
-}
+.search .result { background: rgba(255,255,255,0.03); }
+.search .result:hover { background: rgba(255,255,255,0.08); }
+.bookmarks .area:hover { background: rgba(255,255,255,0.08); }
+.bookmarks .cmd { color: #fff; }
