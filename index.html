@@ -10,6 +10,7 @@
       margin: 0;
       height: 100%;
       background: #333;
+      overflow: hidden;
     }
 
     #flip-book-container {
@@ -23,8 +24,9 @@
       top: 14px;
       left: 50%;
       transform: translateX(-50%);
-      z-index: 1000;
+      z-index: 999999;
       font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+      pointer-events: auto;
     }
 
     .lang-btn {
@@ -56,7 +58,7 @@
   <!-- Flipbook container -->
   <div id="flip-book-container"></div>
 
-  <!-- Libraries -->
+  <!-- Libraries (same ones that worked before) -->
   <script src="js/libs/jquery.min.js"></script>
   <script src="js/libs/three.min.js"></script>
   <script src="js/libs/pdf.min.js"></script>
@@ -68,12 +70,6 @@
   <script src="js/dist/3dflipbook.min.js"></script>
 
   <script>
-    // PDF.js worker + cmaps
-    window.PDFJS_LOCALE = 'en-US';
-    pdfjsWorker = 'js/libs/pdf.worker.js';
-    pdfjsCMapUrl = 'cmaps';
-
-    // Paths to the two lookbooks
     const BOOKS = {
       jpn: 'pdf/amf_Jewelry_LookBook_JPN.pdf',
       eng: 'pdf/amf_Jewelry_LookBook_ENG.pdf'
@@ -84,7 +80,7 @@
       var pdfPath = BOOKS[lang];
       var $container = $('#flip-book-container');
 
-      // Clear any previous instance
+      // Clear previous instance (prevents flaky behavior)
       $container.html('');
 
       $container.FlipBook({
@@ -103,7 +99,7 @@
         }
       });
 
-      // Update active button
+      // Update active state on buttons
       $('.lang-btn').removeClass('active');
       if (lang === 'jpn') {
         $('#btn-jpn').addClass('active');
@@ -113,7 +109,7 @@
     }
 
     jQuery(function ($) {
-      // Default: Japanese book
+      // Default: Japanese
       loadBook('jpn');
 
       $('#btn-jpn').on('click', function (e) {
