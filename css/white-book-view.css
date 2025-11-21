@@ -225,7 +225,7 @@ a.disabled, .cmd.disabled {
 }
 
 /* =========================================================
-   TOOLBAR – WHITE, COMPACT, CENTERED PILL
+   TOOLBAR – DARK, COMPACT, CENTERED PILL
    ========================================================= */
 
 /* outer toolbar container pinned to bottom and centered */
@@ -242,15 +242,15 @@ a.disabled, .cmd.disabled {
   padding: 0;
 }
 
-/* inner pill with icons – white, semi-transparent */
+/* inner pill with icons – DARK */
 .toolbar .buttons {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background: rgba(255, 255, 255, 0.8);
+  background: rgba(0,0,0,0.75);     /* black transparent */
   border-radius: 14px;
   padding: 6px 14px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 0 12px rgba(0,0,0,0.45);
 }
 
 /* items inside pill */
@@ -264,20 +264,19 @@ a.disabled, .cmd.disabled {
 .toolbar .buttons > li > .cmd {
   padding: 4px 8px;
   font-size: 13px;
-  color: #333;
+  color: #eee;
   opacity: 0.8;
-  transition: opacity .2s ease, color .2s ease;
+  transition: opacity .2s ease;
 }
 
 .toolbar .buttons > li > a:hover,
 .toolbar .buttons > li > .cmd:hover {
   opacity: 1;
-  color: #000;
 }
 
 .toolbar .buttons > li > a.active,
 .toolbar .buttons > li > .cmd.active {
-  color: #000;
+  color: #fff;
 }
 
 /* =========================================================
@@ -569,3 +568,4 @@ a.disabled, .cmd.disabled {
 .fb3d-progress-value {
   background: #d23a3a !important; /* red progress line */
 }
+
