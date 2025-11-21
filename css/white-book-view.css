@@ -228,7 +228,6 @@ a.disabled, .cmd.disabled {
    TOOLBAR – DARK, COMPACT, CENTERED PILL
    ========================================================= */
 
-/* outer toolbar container pinned to bottom and centered */
 .toolbar {
   position: absolute;
   left: 50%;
@@ -242,31 +241,27 @@ a.disabled, .cmd.disabled {
   padding: 0;
 }
 
-/* inner pill with icons – DARK */
 .toolbar .buttons {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background: rgba(0,0,0,0.75);     /* black transparent */
+  background: rgba(0,0,0,0.75); /* BLACK pill */
   border-radius: 14px;
   padding: 6px 14px;
   box-shadow: 0 0 12px rgba(0,0,0,0.45);
 }
 
-/* items inside pill */
 .toolbar .buttons > li {
   display: inline-flex;
   align-items: center;
 }
 
-/* links/commands inside pill */
 .toolbar .buttons > li > a,
 .toolbar .buttons > li > .cmd {
   padding: 4px 8px;
   font-size: 13px;
   color: #eee;
   opacity: 0.8;
-  transition: opacity .2s ease;
 }
 
 .toolbar .buttons > li > a:hover,
@@ -557,3 +552,4 @@ a.disabled, .cmd.disabled {
   text-align: center;
   font-size: 12px;
 }
+
