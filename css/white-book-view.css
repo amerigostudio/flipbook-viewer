@@ -225,20 +225,10 @@ a.disabled, .cmd.disabled {
 }
 
 /* =========================================================
-   TOOLBAR – DARK, COMPACT, CENTERED PILL
+   TOOLBAR – DARK, COMPACT PILL
    ========================================================= */
 
-/* tbox becomes the centering container at the very bottom */
-.tbox {
-  position: absolute;
-  left: 0;
-  bottom: 16px;               /* spacing from bottom */
-  width: 100%;
-  text-align: center;          /* center children */
-  pointer-events: none;        /* so clicks pass except on toolbar */
-}
-
-/* the actual toolbar is an inline-flex pill, centered via tbox */
+/* the actual toolbar pill */
 .toolbar {
   display: inline-flex;
   align-items: center;
@@ -249,7 +239,6 @@ a.disabled, .cmd.disabled {
   border-radius: 16px;
   border: none;
   box-shadow: 0 0 12px rgba(0,0,0,0.45);
-  pointer-events: auto;        /* clickable */
 }
 
 /* reset width so it’s not full-width */
@@ -575,24 +564,27 @@ a.disabled, .cmd.disabled {
    ========================================================= */
 
 .ctrls .tbox {
-  position: fixed;              /* stick to browser window */
-  bottom: 20px;                 /* offset from bottom */
-  left: 0;
-  width: 100%;
-  text-align: center;           /* center children inline-block */
-  pointer-events: none;         /* clicks go through except toolbar */
-  z-index: 2147483647;          /* on top of everything */
+  position: fixed !important;         /* stick to browser window */
+  bottom: 20px !important;            /* offset from bottom */
+  left: 50% !important;               /* center point */
+  transform: translateX(-50%) !important;
+  width: auto !important;
+  text-align: center !important;
+  pointer-events: none;
+  z-index: 2147483647;
 }
 
 .ctrls .tbox .toolbar {
-  position: static !important;  /* cancel old absolute positioning */
-  display: inline-block;        /* shrink to content */
-  width: auto !important;       /* no full-width bar */
+  position: relative !important;
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  width: auto !important;
   background: rgba(0, 0, 0, 0.55);
   border-radius: 12px;
   padding: 6px 16px;
   box-shadow: none;
-  pointer-events: auto;         /* clickable again */
+  pointer-events: auto;           /* clickable again */
 }
 
 .ctrls .tbox .toolbar .buttons {
