@@ -569,3 +569,34 @@ a.disabled, .cmd.disabled {
 .fb3d-progress-value {
   background: #d23a3a !important; /* red progress line */
 }
+
+/* =========================================================
+   FORCE CENTERED TOOLBAR (OVERRIDE)
+   ========================================================= */
+
+.ctrls .tbox {
+  position: fixed;              /* stick to browser window */
+  bottom: 20px;                 /* offset from bottom */
+  left: 0;
+  width: 100%;
+  text-align: center;           /* center children inline-block */
+  pointer-events: none;         /* clicks go through except toolbar */
+  z-index: 2147483647;          /* on top of everything */
+}
+
+.ctrls .tbox .toolbar {
+  position: static !important;  /* cancel old absolute positioning */
+  display: inline-block;        /* shrink to content */
+  width: auto !important;       /* no full-width bar */
+  background: rgba(0, 0, 0, 0.55);
+  border-radius: 12px;
+  padding: 6px 16px;
+  box-shadow: none;
+  pointer-events: auto;         /* clickable again */
+}
+
+.ctrls .tbox .toolbar .buttons {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+}
