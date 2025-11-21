@@ -11,61 +11,72 @@
 .main * {
   box-sizing: border-box;
 }
-.main .hidden, .main .cmd.hidden {
+.main .hidden,
+.main .cmd.hidden {
   display: none;
 }
 .main .fade {
   opacity: 1;
   visibility: visible;
-  transition: opacity .15s ease-in;
+  transition: opacity 0.15s ease-in;
 }
 .main .hidden.fade {
   display: block;
   pointer-events: none;
   visibility: hidden;
   opacity: 0;
-  transition: opacity .15s ease-out, visibility .15s step-end;
+  transition: opacity 0.15s ease-out, visibility 0.15s step-end;
 }
 .main input {
   outline: none;
 }
 
-ul, li {
+ul,
+li {
   font-size: 0;
 }
-li a, li .cmd {
+li a,
+li .cmd {
   font-size: 14px;
 }
 
-a, .cmd {
+a,
+.cmd {
   color: #ccc;
   text-decoration: none;
   cursor: pointer;
-  transition: color .15s ease-in;
+  transition: color 0.15s ease-in;
 }
-a:hover, .cmd:hover {
+a:hover,
+.cmd:hover {
   color: #fff;
-  transition: color .15s ease-out;
+  transition: color 0.15s ease-out;
 }
-a:active, .cmd:active {
-  text-shadow: 0 0 1px rgba(0,0,0,0.5);
+a:active,
+.cmd:active {
+  text-shadow: 0 0 1px rgba(0, 0, 0, 0.5);
 }
-a.active, .cmd.active {
+a.active,
+.cmd.active {
   color: #fff;
 }
-a.disabled, .cmd.disabled {
+a.disabled,
+.cmd.disabled {
   pointer-events: none;
-  opacity: .5;
+  opacity: 0.5;
 }
 
-.hbtn a, .hbtn .cmd {
+.hbtn a,
+.hbtn .cmd {
   font-size: 52px;
   color: #999;
 }
-.hbtn a:hover, .hbtn .cmd:hover {
+.hbtn a:hover,
+.hbtn .cmd:hover {
   text-shadow: 0 0 2px #fff;
 }
-.hbtn a:active, .hbtn .cmd:active {
+.hbtn a:active,
+.hbtn .cmd:active {
   font-size: 50px;
 }
 .hbtn .active {
@@ -95,8 +106,12 @@ a.disabled, .cmd.disabled {
    LOADER
    ========================================================= */
 @keyframes loader {
-  0% { transform: scale(1.2) }
-  100% { transform: scale(1) }
+  0% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 .loader-box {
   position: absolute;
@@ -123,7 +138,7 @@ a.disabled, .cmd.disabled {
   top: 10px;
   left: 10px;
   background: #444;
-  animation: loader 1s cubic-bezier(0,0.5,0.5,1) infinite;
+  animation: loader 1s cubic-bezier(0, 0.5, 0.5, 1) infinite;
   animation-delay: -0.3s;
   box-sizing: content-box;
 }
@@ -159,12 +174,12 @@ a.disabled, .cmd.disabled {
   margin: 0 auto;
   border-radius: 25px;
   padding: 5px;
-  box-shadow: 0px 0px 3px rgba(200,200,200,0.5);
+  box-shadow: 0px 0px 3px rgba(200, 200, 200, 0.5);
   margin-bottom: 10px;
   position: relative;
 }
 .loading-progress .loader-box {
-  transform: scale(.7);
+  transform: scale(0.7);
 }
 .loading-progress .caption {
   background-color: #fff;
@@ -212,7 +227,8 @@ a.disabled, .cmd.disabled {
 /* =========================================================
    NEXT / PREVIOUS ARROWS
    ========================================================= */
-.ctrls .prev, .ctrls .next {
+.ctrls .prev,
+.ctrls .next {
   position: absolute;
   top: 50%;
   transform: translate(0, -50%);
@@ -225,24 +241,43 @@ a.disabled, .cmd.disabled {
 }
 
 /* =========================================================
-   TOOLBAR – DARK, COMPACT PILL
+   TOOLBAR – FLOATING PILL, CENTERED AT BOTTOM
    ========================================================= */
 
-/* the actual toolbar pill */
-.toolbar {
+/* Controls layer covers the viewport but doesn’t steal clicks
+   except where we explicitly re-enable pointer-events. */
+.ctrls {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+}
+
+/* Container that centers the toolbar at the bottom */
+.ctrls .tbox {
+  position: absolute;
+  left: 50%;
+  bottom: 20px;
+  transform: translateX(-50%);
+  pointer-events: none; /* only toolbar itself is clickable */
+}
+
+/* The actual pill toolbar */
+.ctrls .tbox .toolbar {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   height: 32px;
-  padding: 0 10px;
-  background: rgba(0,0,0,0.75);
+  padding: 0 12px;
+  background: rgba(0, 0, 0, 0.75);
   border-radius: 16px;
   border: none;
-  box-shadow: 0 0 12px rgba(0,0,0,0.45);
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.45);
+  pointer-events: auto; /* clickable */
 }
 
-/* reset width so it’s not full-width */
-.toolbar ul, .toolbar li {
+/* Inner structure */
+.toolbar ul,
+.toolbar li {
   list-style: none;
   margin: 0;
   padding: 0;
@@ -252,26 +287,32 @@ a.disabled, .cmd.disabled {
   display: inline-flex;
   align-items: center;
 }
-.buttons>li {
+.buttons > li {
   display: inline-flex;
   align-items: center;
 }
-.buttons>li>a, .buttons>li>.cmd {
+.buttons > li > a,
+.buttons > li > .cmd {
   padding: 6px 8px;
   font-size: 13px;
   color: #eee;
   opacity: 0.8;
-  transition: opacity .2s ease;
+  transition: opacity 0.2s ease;
 }
-.buttons>li>a:hover, .buttons>li>.cmd:hover {
+.buttons > li > a:hover,
+.buttons > li > .cmd:hover {
   opacity: 1;
 }
-.buttons>li>a.active, .buttons>li>.cmd.active {
+.buttons > li > a.active,
+.buttons > li > .cmd.active {
   color: #fff;
 }
 
-/* caret for the “more” menu */
-.dropdown, .dropup {
+/* =========================================================
+   DROPDOWN / MORE MENU
+   ========================================================= */
+.dropdown,
+.dropup {
   position: relative;
 }
 .dropdown .caret {
@@ -287,7 +328,6 @@ a.disabled, .cmd.disabled {
   border-bottom: 5px solid #ccc;
 }
 
-/* dropdown menu */
 .dropdown .v-menu {
   top: 100%;
 }
@@ -302,13 +342,13 @@ a.disabled, .cmd.disabled {
   min-width: 160px;
   right: 0;
   text-align: left;
-  box-shadow: 3px 3px 6px rgba(0,0,0,0.5);
+  box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);
 }
 .v-menu li .cmd {
   display: block;
   color: #f5f5f5;
   padding: 5px 10px;
-  transition: background-color .1s ease-in;
+  transition: background-color 0.1s ease-in;
 }
 .v-menu li .cmd .fa {
   color: #bbb;
@@ -319,9 +359,10 @@ a.disabled, .cmd.disabled {
 }
 .v-menu .cmd:hover {
   background-color: #333;
-  transition: background-color .1s ease-out;
+  transition: background-color 0.1s ease-out;
 }
-.v-menu .active, .v-menu .cmd:active {
+.v-menu .active,
+.v-menu .cmd:active {
   background-color: #3b3b3b;
 }
 
@@ -339,8 +380,8 @@ a.disabled, .cmd.disabled {
   padding: 3px 0;
   text-align: center;
   color: #fff;
-  background: rgba(255,255,255,0.08);
-  border: 1px solid rgba(255,255,255,0.18);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.18);
   border-radius: 3px;
   margin: 0;
 }
@@ -353,7 +394,7 @@ a.disabled, .cmd.disabled {
   border-bottom-left-radius: 0;
 }
 .pages .number:focus {
-  background: rgba(255,255,255,0.16);
+  background: rgba(255, 255, 255, 0.16);
 }
 
 /* =========================================================
@@ -363,13 +404,13 @@ a.disabled, .cmd.disabled {
   position: absolute;
   border-radius: 4px 4px 0 0;
   z-index: 1;
-  background-color: rgba(0,0,0,0.8);
-  box-shadow: 0 0 12px rgba(0,0,0,0.5);
+  background-color: rgba(0, 0, 0, 0.8);
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.5);
 }
 .float-wnd .head {
   border-radius: 4px 4px 0 0;
   cursor: move;
-  background-color: rgba(255,255,255,0.06);
+  background-color: rgba(255, 255, 255, 0.06);
   padding: 7px 10px;
   border: none;
   color: #fff;
@@ -382,7 +423,7 @@ a.disabled, .cmd.disabled {
 }
 .float-wnd .body {
   border: none;
-  background-color: rgba(0,0,0,0.7);
+  background-color: rgba(0, 0, 0, 0.7);
   color: #eee;
 }
 
@@ -428,10 +469,11 @@ a.disabled, .cmd.disabled {
   margin: 0;
   padding: 10px;
 }
-.h-menu>li {
+.h-menu > li {
   display: inline-flex;
 }
-.h-menu>li>a, .h-menu>li>.cmd {
+.h-menu > li > a,
+.h-menu > li > .cmd {
   padding-right: 10px;
 }
 
@@ -465,18 +507,19 @@ a.disabled, .cmd.disabled {
   padding: 0 10px;
   overflow: hidden;
 }
-.bookmarks ul, .bookmarks li {
+.bookmarks ul,
+.bookmarks li {
   list-style: none;
   padding: 0;
   margin: 0;
 }
 .bookmarks .area {
   position: relative;
-  transition: background-color .1s ease-in;
+  transition: background-color 0.1s ease-in;
 }
 .bookmarks .area:hover {
-  background-color: rgba(255,255,255,0.08);
-  transition: background-color .1s ease-out;
+  background-color: rgba(255, 255, 255, 0.08);
+  transition: background-color 0.1s ease-out;
 }
 .bookmarks .cmd {
   display: block;
@@ -499,10 +542,10 @@ a.disabled, .cmd.disabled {
   display: inline-block;
   width: 130px;
   padding: 5px;
-  transition: background-color .1s ease-in;
+  transition: background-color 0.1s ease-in;
 }
 .thumbnails .item:hover {
-  background-color: rgba(255,255,255,0.05);
+  background-color: rgba(255, 255, 255, 0.05);
 }
 
 /* =========================================================
@@ -522,17 +565,17 @@ a.disabled, .cmd.disabled {
   cursor: pointer;
   font-size: 12px;
   border-bottom: dashed 1px #555;
-  background: rgba(255,255,255,0.03);
-  transition: background-color .1s ease-in;
+  background: rgba(255, 255, 255, 0.03);
+  transition: background-color 0.1s ease-in;
 }
 .search .result:last-child {
   border-bottom: none;
 }
 .search .result:hover {
-  background-color: rgba(255,255,255,0.08);
+  background-color: rgba(255, 255, 255, 0.08);
 }
 .search .hit {
-  background-color: rgba(255,255,0,.15);
+  background-color: rgba(255, 255, 0, 0.15);
 }
 .search .query {
   padding: 10px;
@@ -553,42 +596,8 @@ a.disabled, .cmd.disabled {
    ========================================================= */
 .fb3d-progress {
   height: 3px !important;
-  background: rgba(255,255,255,0.15);
+  background: rgba(255, 255, 255, 0.15);
 }
 .fb3d-progress-value {
   background: #d23a3a !important; /* red progress line */
-}
-
-/* =========================================================
-   FORCE CENTERED TOOLBAR (OVERRIDE)
-   ========================================================= */
-
-.ctrls .tbox {
-  position: fixed !important;         /* stick to browser window */
-  bottom: 20px !important;            /* offset from bottom */
-  left: 50% !important;               /* center point */
-  transform: translateX(-50%) !important;
-  width: auto !important;
-  text-align: center !important;
-  pointer-events: none;
-  z-index: 2147483647;
-}
-
-.ctrls .tbox .toolbar {
-  position: relative !important;
-  display: inline-flex !important;
-  align-items: center;
-  justify-content: center;
-  width: auto !important;
-  background: rgba(0, 0, 0, 0.55);
-  border-radius: 12px;
-  padding: 6px 16px;
-  box-shadow: none;
-  pointer-events: auto;           /* clickable again */
-}
-
-.ctrls .tbox .toolbar .buttons {
-  display: flex !important;
-  align-items: center;
-  justify-content: center;
 }
