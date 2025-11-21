@@ -578,3 +578,30 @@ a.disabled, .cmd.disabled {
 .toolbar .buttons {
     margin: 0 auto !important;
 }
+
+/* --- WHITE TRANSPARENT TOOLBAR PILL --- */
+.toolbar .buttons {
+    background: rgba(255, 255, 255, 0.75) !important;  /* soft white */
+    border-radius: 14px !important;
+    padding: 6px 14px !important;
+    box-shadow: 0 0 12px rgba(0,0,0,0.20) !important;  /* subtle shadow like BMW demo */
+}
+
+/* icon color in white mode */
+.buttons > li > a,
+.buttons > li > .cmd {
+    color: #333 !important;
+    opacity: 0.8;
+    transition: opacity .2s ease, color .2s ease;
+}
+
+.buttons > li > a:hover,
+.buttons > li > .cmd:hover {
+    opacity: 1;
+    color: #000 !important;  /* darker on hover */
+}
+
+.buttons > li > a.active,
+.buttons > li > .cmd.active {
+    color: #000 !important;
+}
