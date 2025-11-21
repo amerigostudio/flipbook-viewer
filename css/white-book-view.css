@@ -1,26 +1,28 @@
 /* =========================================================
-   CORE STRUCTURE
+   CORE STRUCTURE (unchanged functionality)
    ========================================================= */
 .main {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 14px;
-  position: fixed;             /* fill the whole iframe */
-  inset: 0;
+  position: relative;
   height: 100%;
-  color: #ccc;                 /* light text */
+  color: #ccc;
 }
+
 .main * {
   box-sizing: border-box;
 }
-.main .hidden,
-.main .cmd.hidden {
+
+.main .hidden, .main .cmd.hidden {
   display: none;
 }
+
 .main .fade {
   opacity: 1;
   visibility: visible;
   transition: opacity .15s ease-in;
 }
+
 .main .hidden.fade {
   display: block;
   pointer-events: none;
@@ -29,56 +31,47 @@
   transition: opacity .15s ease-out, visibility .15s step-end;
 }
 
-a,
-.cmd {
+a, .cmd {
   color: #ccc;
   text-decoration: none;
   cursor: pointer;
   transition: color .15s ease-in;
 }
-a:hover,
-.cmd:hover {
+
+a:hover, .cmd:hover {
   color: #fff;
 }
-a.active,
-.cmd.active {
+
+a.active, .cmd.active {
   color: #fff;
 }
-a.disabled,
-.cmd.disabled {
+
+a.disabled, .cmd.disabled {
   pointer-events: none;
   opacity: .5;
 }
 
-.hbtn a,
-.hbtn .cmd {
+.hbtn a, .hbtn .cmd {
   font-size: 52px;
   color: #999;
 }
-.hbtn a:hover,
-.hbtn .cmd:hover {
+
+.hbtn a:hover, .hbtn .cmd:hover {
   text-shadow: 0 0 2px #fff;
 }
 
 /* =========================================================
-   VIEW AREA – book centred, space reserved for toolbar
+   VIEW AREA  — FULLSCREEN LIKE LION DEMO
    ========================================================= */
 .view {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;                      /* full height by default */
+  height: 100% !important;
   background: no-repeat 50%;
   background-size: cover;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
+/* Force full height even when toolbar is visible */
 .view.toolbar-en {
-  bottom: 90px;                   /* reserve space for bottom bar */
+  height: 100% !important;
 }
 
 .view .render {
@@ -86,12 +79,13 @@ a.disabled,
 }
 
 /* =========================================================
-   LOADER
+   LOADER (kept minimal/dark)
    ========================================================= */
 @keyframes loader {
   0% { transform: scale(1.2) }
   100% { transform: scale(1) }
 }
+
 .loader-box {
   position: absolute;
   left: calc(50% - 25px);
@@ -101,59 +95,31 @@ a.disabled,
   overflow: hidden;
   background: rgba(0, 0, 0, 0);
 }
-.loader {
-  width: 100%;
-  height: 100%;
-  position: relative;
-  transform: translateZ(0) scale(0.5);
-  backface-visibility: hidden;
-  transform-origin: 0 0;
-}
+
 .loader div {
-  position: absolute;
   width: 35px;
   height: 35px;
   top: 10px;
   left: 10px;
   background: #444;
-  animation: loader 1s cubic-bezier(0,0.5,0.5,1) infinite;
-  animation-delay: -0.3s;
-  box-sizing: content-box;
-}
-.loader div:nth-child(2) {
-  top: 10px;
-  left: 55px;
-  background: #666;
-  animation-delay: -0.2s;
-}
-.loader div:nth-child(3) {
-  top: 55px;
-  left: 10px;
-  background: #9b9b9b;
-  animation-delay: 0s;
-}
-.loader div:nth-child(4) {
-  top: 55px;
-  left: 55px;
-  background: #d4d4d4;
-  animation-delay: -0.1s;
 }
 
 /* =========================================================
-   NEXT / PREVIOUS ARROWS
+   PAGE ARROWS (clean white like demo)
    ========================================================= */
 .ctrls .prev,
 .ctrls .next {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  color: #fff;
-  font-size: 32px;
+  color: #ffffff;
+  font-size: 34px;
   opacity: 0.7;
   transition: opacity .25s ease;
 }
-.ctrls .prev { left: 20px; }
-.ctrls .next { right: 20px; }
+
+.ctrls .prev { left: 24px; }
+.ctrls .next { right: 24px; }
 
 .ctrls .prev:hover,
 .ctrls .next:hover {
@@ -161,26 +127,31 @@ a.disabled,
 }
 
 /* =========================================================
-   COMPACT FLOATING TOOLBAR (BOTTOM OF WINDOW)
+   FLOATING TOOLBAR (CENTERED PILL LIKE LION MAGAZINE)
    ========================================================= */
 .toolbar {
-  position: fixed;                 /* stick to bottom of iframe */
-  left: 50%;
-  bottom: 24px;
-  transform: translateX(-50%);
-  padding: 6px 14px;
+  position: fixed !important;
+  bottom: 26px !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+
+  background: rgba(0,0,0,0.70) !important;
+  backdrop-filter: blur(6px);
   border-radius: 999px;
 
-  background: rgba(0,0,0,0.75);
-  backdrop-filter: blur(6px);
+  height: 36px;
+  padding: 0 14px;
 
-  display: inline-flex;
+  width: auto !important;
+  max-width: 90vw;
+
+  box-shadow: 0 10px 28px rgba(0,0,0,0.45);
+  border: none !important;
+
+  display: flex;
   align-items: center;
   justify-content: center;
-  text-align: center;
-
-  border: none;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.35);
+  z-index: 999999;
 }
 
 .toolbar ul,
@@ -194,111 +165,107 @@ a.disabled,
   display: inline-flex;
   align-items: center;
 }
+
 .buttons > li {
   display: inline-flex;
   align-items: center;
 }
+
 .buttons > li > a,
 .buttons > li > .cmd {
-  padding: 4px 8px;
+  padding: 6px 10px;
   font-size: 13px;
   color: #eee;
   opacity: 0.8;
-  transition: opacity .2s ease;
+  transition: opacity .2s;
 }
+
 .buttons > li > a:hover,
 .buttons > li > .cmd:hover {
   opacity: 1;
 }
 
-.buttons > li > a.active,
-.buttons > li > .cmd.active {
-  opacity: 1;
-}
-
-/* hide “active-visible / active-hidden” flicker detail */
-.buttons .active-hidden,
-.buttons .active-visible {
-  width: 10px;
-}
-
 /* =========================================================
-   PAGE NUMBER FIELD
+   PAGE NUMBER BOXES (minimal)
    ========================================================= */
 .pages {
-  padding: 0 8px;
+  padding: 0 6px;
   display: inline-flex;
   align-items: center;
 }
+
 .pages .number,
 .pages .amount {
-  width: 40px;
-  padding: 3px 0;
+  width: 42px;
+  padding: 4px 0;
   text-align: center;
+
   color: #fff;
   background: rgba(255,255,255,0.08);
   border: 1px solid rgba(255,255,255,0.15);
   border-radius: 4px;
 }
+
 .pages .number:focus {
   background: rgba(255,255,255,0.18);
 }
 
 /* =========================================================
-   FLOATING WINDOWS (TOC / SEARCH / SHARE)
+   FLOAT WINDOWS (Search / TOC / Share)
+   DARK TRANSPARENT
    ========================================================= */
 .float-wnd {
-  position: absolute;
-  border-radius: 4px 4px 0 0;
-  z-index: 1;
-
   background: rgba(0,0,0,0.75);
   color: white;
   box-shadow: 0 0 12px rgba(0,0,0,0.4);
+  border: none;
 }
-.float-wnd .head {
-  border-radius: 4px 4px 0 0;
-  cursor: move;
 
+.float-wnd .head {
   background: rgba(255,255,255,0.07);
   border: none;
   color: #fff;
 }
+
 .float-wnd .body {
-  background: rgba(0,0,0,0.65);
+  background: rgba(0,0,0,0.55);
   border: none;
 }
 
 /* =========================================================
-   THUMBNAILS (dark theme)
+   THUMBNAILS
    ========================================================= */
 .thumbnails .item:hover {
   background: rgba(255,255,255,0.05);
 }
 
 /* =========================================================
-   PAGE PROGRESS BAR – thin red
+   PROGRESS BAR (thin red)
    ========================================================= */
 .fb3d-progress {
   height: 3px !important;
   background: rgba(255,255,255,0.15);
 }
+
 .fb3d-progress-value {
   background: #d23a3a !important;
 }
 
 /* =========================================================
-   SEARCH RESULTS / BOOKMARKS
+   SEARCH RESULTS / TOC / BOOKMARKS
    ========================================================= */
 .search .result {
   background: rgba(255,255,255,0.03);
 }
+
 .search .result:hover {
   background: rgba(255,255,255,0.08);
 }
+
 .bookmarks .area:hover {
   background: rgba(255,255,255,0.08);
 }
+
 .bookmarks .cmd {
   color: #fff;
 }
