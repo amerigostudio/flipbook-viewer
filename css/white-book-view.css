@@ -225,85 +225,60 @@ a.disabled, .cmd.disabled {
 }
 
 /* =========================================================
-   TOOLBAR – DARK, COMPACT, **CENTERED PILL**
+   TOOLBAR – DARK, COMPACT, CENTERED PILL
    ========================================================= */
 
-/* Make the controls container sit at bottom of viewport */
-.widControls {
-  position: fixed !important;
+/* keep toolbar pinned to bottom of flipbook area */
+.toolbar {
+  position: absolute;
   left: 0;
-  bottom: 0;
+  bottom: 16px;               /* space from bottom */
   width: 100%;
-  pointer-events: none;
-  z-index: 2147483645;
-}
-
-/* tbox spans full width and centers its contents */
-.widControls .tbox {
-  position: static !important;
-  width: 100%;
-  text-align: center;
-  pointer-events: none;
-}
-
-/* the actual toolbar as a centered pill */
-.widControls .tbox .toolbar {
-  position: relative !important;
-  display: inline-flex !important;
-  align-items: center;
-  justify-content: center;
-  height: 32px;
-  padding: 0 16px;
-  background: rgba(0,0,0,0.75);
-  border-radius: 16px;
+  text-align: center;          /* center inner pill */
+  background: transparent;     /* no full-width bar */
   border: none;
-  box-shadow: 0 0 12px rgba(0,0,0,0.45);
-  width: auto !important;
-  margin: 0 auto !important;
-  left: auto !important;
-  right: auto !important;
-  pointer-events: auto;        /* clickable */
-}
-
-/* list/btn reset inside the pill */
-.widControls .tbox .toolbar ul,
-.widControls .tbox .toolbar li {
-  list-style: none;
-  margin: 0;
+  box-shadow: none;
   padding: 0;
 }
 
-.widControls .tbox .toolbar .buttons {
-  display: flex !important;
+/* inner pill with icons */
+.toolbar .buttons {
+  display: inline-flex;
   align-items: center;
   justify-content: center;
+  background: rgba(0,0,0,0.75);
+  border-radius: 14px;
+  padding: 6px 14px;
+  box-shadow: 0 0 12px rgba(0,0,0,0.45);
 }
 
-.widControls .tbox .toolbar .buttons > li {
+.buttons > li {
   display: inline-flex;
   align-items: center;
 }
 
-.widControls .tbox .toolbar .buttons > li > a,
-.widControls .tbox .toolbar .buttons > li > .cmd {
-  padding: 6px 8px;
+.buttons > li > a,
+.buttons > li > .cmd {
+  padding: 4px 8px;
   font-size: 13px;
   color: #eee;
   opacity: 0.8;
   transition: opacity .2s ease;
 }
 
-.widControls .tbox .toolbar .buttons > li > a:hover,
-.widControls .tbox .toolbar .buttons > li > .cmd:hover {
+.buttons > li > a:hover,
+.buttons > li > .cmd:hover {
   opacity: 1;
 }
 
-.widControls .tbox .toolbar .buttons > li > a.active,
-.widControls .tbox .toolbar .buttons > li > .cmd.active {
+.buttons > li > a.active,
+.buttons > li > .cmd.active {
   color: #fff;
 }
 
-/* dropdown caret */
+/* =========================================================
+   DROPDOWN MENU (More ...)
+   ========================================================= */
 .dropdown, .dropup {
   position: relative;
 }
@@ -320,7 +295,6 @@ a.disabled, .cmd.disabled {
   border-bottom: 5px solid #ccc;
 }
 
-/* dropdown menu */
 .dropdown .v-menu {
   top: 100%;
 }
