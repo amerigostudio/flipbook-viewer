@@ -225,55 +225,59 @@ a.disabled, .cmd.disabled {
 }
 
 /* =========================================================
-   TOOLBAR – DARK, COMPACT, CENTERED PILL
+   TOOLBAR – WHITE, COMPACT, CENTERED PILL
    ========================================================= */
 
-/* keep toolbar pinned to bottom of flipbook area */
+/* outer toolbar container pinned to bottom and centered */
 .toolbar {
   position: absolute;
-  left: 0;
-  bottom: 16px;               /* space from bottom */
-  width: 100%;
-  text-align: center;          /* center inner pill */
-  background: transparent;     /* no full-width bar */
+  left: 50%;
+  bottom: 20px;
+  transform: translateX(-50%);
+  width: auto;
+  text-align: center;
+  background: transparent;
   border: none;
   box-shadow: none;
   padding: 0;
 }
 
-/* inner pill with icons */
+/* inner pill with icons – white, semi-transparent */
 .toolbar .buttons {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background: rgba(0,0,0,0.75);
+  background: rgba(255, 255, 255, 0.8);
   border-radius: 14px;
   padding: 6px 14px;
-  box-shadow: 0 0 12px rgba(0,0,0,0.45);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
 }
 
-.buttons > li {
+/* items inside pill */
+.toolbar .buttons > li {
   display: inline-flex;
   align-items: center;
 }
 
-.buttons > li > a,
-.buttons > li > .cmd {
+/* links/commands inside pill */
+.toolbar .buttons > li > a,
+.toolbar .buttons > li > .cmd {
   padding: 4px 8px;
   font-size: 13px;
-  color: #eee;
+  color: #333;
   opacity: 0.8;
-  transition: opacity .2s ease;
+  transition: opacity .2s ease, color .2s ease;
 }
 
-.buttons > li > a:hover,
-.buttons > li > .cmd:hover {
+.toolbar .buttons > li > a:hover,
+.toolbar .buttons > li > .cmd:hover {
   opacity: 1;
+  color: #000;
 }
 
-.buttons > li > a.active,
-.buttons > li > .cmd.active {
-  color: #fff;
+.toolbar .buttons > li > a.active,
+.toolbar .buttons > li > .cmd.active {
+  color: #000;
 }
 
 /* =========================================================
@@ -564,43 +568,4 @@ a.disabled, .cmd.disabled {
 }
 .fb3d-progress-value {
   background: #d23a3a !important; /* red progress line */
-}
-
-/* --- FORCE TOOLBAR CENTERING --- */
-.toolbar {
-    position: absolute !important;
-    left: 50% !important;
-    bottom: 20px !important;
-    transform: translateX(-50%) !important;
-    width: auto !important;
-}
-
-.toolbar .buttons {
-    margin: 0 auto !important;
-}
-
-/* --- FORCE WHITE TRANSPARENT TOOLBAR PILL --- */
-ul.toolbar > li.buttons {
-    background: rgba(255, 255, 255, 0.75) !important;
-    border-radius: 14px !important;
-    padding: 6px 14px !important;
-    box-shadow: 0 0 12px rgba(0,0,0,0.20) !important;
-}
-
-/* dark icons for white pill */
-ul.toolbar > li.buttons a,
-ul.toolbar > li.buttons .cmd {
-    color: #333 !important;
-    opacity: 0.8 !important;
-}
-
-ul.toolbar > li.buttons a:hover,
-ul.toolbar > li.buttons .cmd:hover {
-    opacity: 1 !important;
-    color: #000 !important;
-}
-
-ul.toolbar > li.buttons a.active,
-ul.toolbar > li.buttons .cmd.active {
-    color: #000 !important;
 }
