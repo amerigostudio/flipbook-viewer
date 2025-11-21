@@ -1,17 +1,19 @@
 /* =========================================================
-   CORE STRUCTURE (unchanged functionality)
+   CORE STRUCTURE
    ========================================================= */
 .main {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 14px;
-  position: relative;
+  position: fixed;             /* fill the whole iframe */
+  inset: 0;
   height: 100%;
-  color: #ccc;
+  color: #ccc;                 /* light text */
 }
 .main * {
   box-sizing: border-box;
 }
-.main .hidden, .main .cmd.hidden {
+.main .hidden,
+.main .cmd.hidden {
   display: none;
 }
 .main .fade {
@@ -27,34 +29,58 @@
   transition: opacity .15s ease-out, visibility .15s step-end;
 }
 
-a, .cmd {
+a,
+.cmd {
   color: #ccc;
   text-decoration: none;
   cursor: pointer;
   transition: color .15s ease-in;
 }
-a:hover, .cmd:hover {
+a:hover,
+.cmd:hover {
   color: #fff;
 }
-a.active, .cmd.active {
+a.active,
+.cmd.active {
   color: #fff;
 }
-a.disabled, .cmd.disabled {
+a.disabled,
+.cmd.disabled {
   pointer-events: none;
   opacity: .5;
 }
 
+.hbtn a,
+.hbtn .cmd {
+  font-size: 52px;
+  color: #999;
+}
+.hbtn a:hover,
+.hbtn .cmd:hover {
+  text-shadow: 0 0 2px #fff;
+}
+
 /* =========================================================
-   VIEW AREA
+   VIEW AREA – book centred, space reserved for toolbar
    ========================================================= */
 .view {
-  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;                      /* full height by default */
   background: no-repeat 50%;
   background-size: cover;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
+
 .view.toolbar-en {
-  height: calc(100% - 40px);
+  bottom: 90px;                   /* reserve space for bottom bar */
 }
+
 .view .render {
   height: 100%;
 }
@@ -75,6 +101,14 @@ a.disabled, .cmd.disabled {
   overflow: hidden;
   background: rgba(0, 0, 0, 0);
 }
+.loader {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform: translateZ(0) scale(0.5);
+  backface-visibility: hidden;
+  transform-origin: 0 0;
+}
 .loader div {
   position: absolute;
   width: 35px;
@@ -84,32 +118,36 @@ a.disabled, .cmd.disabled {
   background: #444;
   animation: loader 1s cubic-bezier(0,0.5,0.5,1) infinite;
   animation-delay: -0.3s;
+  box-sizing: content-box;
 }
 .loader div:nth-child(2) {
+  top: 10px;
   left: 55px;
-  background: #777;
+  background: #666;
   animation-delay: -0.2s;
 }
 .loader div:nth-child(3) {
   top: 55px;
-  background: #aaa;
+  left: 10px;
+  background: #9b9b9b;
   animation-delay: 0s;
 }
 .loader div:nth-child(4) {
   top: 55px;
   left: 55px;
-  background: #ddd;
+  background: #d4d4d4;
   animation-delay: -0.1s;
 }
 
 /* =========================================================
-   NAV ARROWS (white like lion demo)
+   NEXT / PREVIOUS ARROWS
    ========================================================= */
-.ctrls .prev, .ctrls .next {
+.ctrls .prev,
+.ctrls .next {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  color: #fff !important;
+  color: #fff;
   font-size: 32px;
   opacity: 0.7;
   transition: opacity .25s ease;
@@ -123,38 +161,33 @@ a.disabled, .cmd.disabled {
 }
 
 /* =========================================================
-   FLOATING CENTERED TOOLBAR (LION STYLE)
+   COMPACT FLOATING TOOLBAR (BOTTOM OF WINDOW)
    ========================================================= */
 .toolbar {
-  position: absolute;
-  bottom: 22px;
+  position: fixed;                 /* stick to bottom of iframe */
   left: 50%;
+  bottom: 24px;
   transform: translateX(-50%);
+  padding: 6px 14px;
+  border-radius: 999px;
 
-  width: auto !important;
-  max-width: 90%;
+  background: rgba(0,0,0,0.75);
+  backdrop-filter: blur(6px);
 
-  height: 36px;
-  padding: 6px 16px;
-
-  background: rgba(0,0,0,0.55) !important;
-  backdrop-filter: blur(4px);
-
-  border-radius: 8px !important;
-  border: none !important;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.35) !important;
-
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  z-index: 999999 !important;
+  text-align: center;
+
+  border: none;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.35);
 }
 
-.toolbar *, .toolbar ul, .toolbar li {
-  background: none !important;
-  background-image: none !important;
-  box-shadow: none !important;
-  border: none !important;
+.toolbar ul,
+.toolbar li {
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
 .buttons {
@@ -170,7 +203,7 @@ a.disabled, .cmd.disabled {
   padding: 4px 8px;
   font-size: 13px;
   color: #eee;
-  opacity: 0.75;
+  opacity: 0.8;
   transition: opacity .2s ease;
 }
 .buttons > li > a:hover,
@@ -178,66 +211,84 @@ a.disabled, .cmd.disabled {
   opacity: 1;
 }
 
+.buttons > li > a.active,
+.buttons > li > .cmd.active {
+  opacity: 1;
+}
+
+/* hide “active-visible / active-hidden” flicker detail */
+.buttons .active-hidden,
+.buttons .active-visible {
+  width: 10px;
+}
+
 /* =========================================================
    PAGE NUMBER FIELD
    ========================================================= */
 .pages {
-  padding: 0 10px;
+  padding: 0 8px;
   display: inline-flex;
   align-items: center;
 }
 .pages .number,
 .pages .amount {
-  width: 38px;
-  padding: 4px 0;
+  width: 40px;
+  padding: 3px 0;
   text-align: center;
   color: #fff;
-  background: rgba(255,255,255,0.07);
-  border: 1px solid rgba(255,255,255,0.2);
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.15);
   border-radius: 4px;
 }
 .pages .number:focus {
-  background: rgba(255,255,255,0.15);
+  background: rgba(255,255,255,0.18);
 }
 
 /* =========================================================
-   PROGRESS BAR — Thin + RED (lion style)
-   ========================================================= */
-.fb3d-progress {
-  height: 3px !important;
-  background: rgba(255,255,255,0.10) !important;
-}
-.fb3d-progress-value {
-  background: #d23a3a !important;
-}
-
-/* =========================================================
-   FLOAT WINDOWS (search, toc)
+   FLOATING WINDOWS (TOC / SEARCH / SHARE)
    ========================================================= */
 .float-wnd {
-  background: rgba(0,0,0,0.75) !important;
+  position: absolute;
+  border-radius: 4px 4px 0 0;
+  z-index: 1;
+
+  background: rgba(0,0,0,0.75);
   color: white;
   box-shadow: 0 0 12px rgba(0,0,0,0.4);
 }
 .float-wnd .head {
-  background: rgba(255,255,255,0.07) !important;
-  border: none !important;
+  border-radius: 4px 4px 0 0;
+  cursor: move;
+
+  background: rgba(255,255,255,0.07);
+  border: none;
   color: #fff;
 }
 .float-wnd .body {
-  background: rgba(0,0,0,0.65) !important;
-  border: none !important;
+  background: rgba(0,0,0,0.65);
+  border: none;
 }
 
 /* =========================================================
-   THUMBNAILS
+   THUMBNAILS (dark theme)
    ========================================================= */
 .thumbnails .item:hover {
   background: rgba(255,255,255,0.05);
 }
 
 /* =========================================================
-   SEARCH
+   PAGE PROGRESS BAR – thin red
+   ========================================================= */
+.fb3d-progress {
+  height: 3px !important;
+  background: rgba(255,255,255,0.15);
+}
+.fb3d-progress-value {
+  background: #d23a3a !important;
+}
+
+/* =========================================================
+   SEARCH RESULTS / BOOKMARKS
    ========================================================= */
 .search .result {
   background: rgba(255,255,255,0.03);
@@ -245,10 +296,6 @@ a.disabled, .cmd.disabled {
 .search .result:hover {
   background: rgba(255,255,255,0.08);
 }
-
-/* =========================================================
-   BOOKMARKS / TOC
-   ========================================================= */
 .bookmarks .area:hover {
   background: rgba(255,255,255,0.08);
 }
