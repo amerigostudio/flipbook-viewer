@@ -565,3 +565,16 @@ a.disabled, .cmd.disabled {
 .fb3d-progress-value {
   background: #d23a3a !important; /* red progress line */
 }
+
+/* --- FORCE TOOLBAR CENTERING --- */
+.toolbar {
+    position: absolute !important;
+    left: 50% !important;
+    bottom: 20px !important;
+    transform: translateX(-50%) !important;
+    width: auto !important;
+}
+
+.toolbar .buttons {
+    margin: 0 auto !important;
+}
