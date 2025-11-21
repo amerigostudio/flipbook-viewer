@@ -579,29 +579,28 @@ a.disabled, .cmd.disabled {
     margin: 0 auto !important;
 }
 
-/* --- WHITE TRANSPARENT TOOLBAR PILL --- */
-.toolbar .buttons {
-    background: rgba(255, 255, 255, 0.75) !important;  /* soft white */
+/* --- FORCE WHITE TRANSPARENT TOOLBAR PILL --- */
+ul.toolbar > li.buttons {
+    background: rgba(255, 255, 255, 0.75) !important;
     border-radius: 14px !important;
     padding: 6px 14px !important;
-    box-shadow: 0 0 12px rgba(0,0,0,0.20) !important;  /* subtle shadow like BMW demo */
+    box-shadow: 0 0 12px rgba(0,0,0,0.20) !important;
 }
 
-/* icon color in white mode */
-.buttons > li > a,
-.buttons > li > .cmd {
+/* dark icons for white pill */
+ul.toolbar > li.buttons a,
+ul.toolbar > li.buttons .cmd {
     color: #333 !important;
-    opacity: 0.8;
-    transition: opacity .2s ease, color .2s ease;
+    opacity: 0.8 !important;
 }
 
-.buttons > li > a:hover,
-.buttons > li > .cmd:hover {
-    opacity: 1;
-    color: #000 !important;  /* darker on hover */
+ul.toolbar > li.buttons a:hover,
+ul.toolbar > li.buttons .cmd:hover {
+    opacity: 1 !important;
+    color: #000 !important;
 }
 
-.buttons > li > a.active,
-.buttons > li > .cmd.active {
+ul.toolbar > li.buttons a.active,
+ul.toolbar > li.buttons .cmd.active {
     color: #000 !important;
 }
