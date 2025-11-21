@@ -1,26 +1,27 @@
 /* =========================================================
-   CORE STRUCTURE (unchanged functionality)
+   CORE STRUCTURE
    ========================================================= */
 .main {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 14px;
   position: relative;
   height: 100%;
-  color: #ccc;
+  color: #ccc; /* light text */
 }
 
 .main * {
   box-sizing: border-box;
 }
 
-.main .hidden, .main .cmd.hidden {
+.main .hidden,
+.main .cmd.hidden {
   display: none;
 }
 
 .main .fade {
   opacity: 1;
   visibility: visible;
-  transition: opacity .15s ease-in;
+  transition: opacity 0.15s ease-in;
 }
 
 .main .hidden.fade {
@@ -28,50 +29,54 @@
   pointer-events: none;
   visibility: hidden;
   opacity: 0;
-  transition: opacity .15s ease-out, visibility .15s step-end;
+  transition: opacity 0.15s ease-out, visibility 0.15s step-end;
 }
 
-a, .cmd {
+/* Links / commands */
+a,
+.cmd {
   color: #ccc;
   text-decoration: none;
   cursor: pointer;
-  transition: color .15s ease-in;
+  transition: color 0.15s ease-in;
 }
-
-a:hover, .cmd:hover {
+a:hover,
+.cmd:hover {
   color: #fff;
 }
-
-a.active, .cmd.active {
+a.active,
+.cmd.active {
   color: #fff;
 }
-
-a.disabled, .cmd.disabled {
+a.disabled,
+.cmd.disabled {
   pointer-events: none;
-  opacity: .5;
+  opacity: 0.5;
 }
 
-.hbtn a, .hbtn .cmd {
+/* Big arrows (prev/next containers use this) */
+.hbtn a,
+.hbtn .cmd {
   font-size: 52px;
   color: #999;
 }
-
-.hbtn a:hover, .hbtn .cmd:hover {
+.hbtn a:hover,
+.hbtn .cmd:hover {
   text-shadow: 0 0 2px #fff;
 }
 
 /* =========================================================
-   VIEW AREA  — FULLSCREEN LIKE LION DEMO
+   VIEW AREA
    ========================================================= */
 .view {
-  height: 100% !important;
+  height: 100%;
   background: no-repeat 50%;
   background-size: cover;
 }
 
-/* Force full height even when toolbar is visible */
 .view.toolbar-en {
-  height: 100% !important;
+  /* leave room at bottom for our floating toolbar */
+  height: calc(100% - 48px);
 }
 
 .view .render {
@@ -79,11 +84,15 @@ a.disabled, .cmd.disabled {
 }
 
 /* =========================================================
-   LOADER (kept minimal/dark)
+   LOADER
    ========================================================= */
 @keyframes loader {
-  0% { transform: scale(1.2) }
-  100% { transform: scale(1) }
+  0% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 
 .loader-box {
@@ -96,30 +105,142 @@ a.disabled, .cmd.disabled {
   background: rgba(0, 0, 0, 0);
 }
 
+.loader {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-origin: 0 0;
+}
+
 .loader div {
+  position: absolute;
   width: 35px;
   height: 35px;
   top: 10px;
   left: 10px;
   background: #444;
+  animation: loader 1s cubic-bezier(0, 0.5, 0.5, 1) infinite;
+  animation-delay: -0.3s;
+  box-sizing: content-box;
+}
+
+.loader div:nth-child(2) {
+  top: 10px;
+  left: 55px;
+  background: #666;
+  animation-delay: -0.2s;
+}
+
+.loader div:nth-child(3) {
+  top: 55px;
+  left: 10px;
+  background: #999;
+  animation-delay: 0s;
+}
+
+.loader div:nth-child(4) {
+  top: 55px;
+  left: 55px;
+  background: #d4d4d4;
+  animation-delay: -0.1s;
+}
+
+/* Progress loader block */
+.loading-progress {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.loading-progress .progress {
+  background-color: #111;
+  width: 50px;
+  height: 50px;
+  margin: 0 auto 10px;
+  border-radius: 25px;
+  padding: 5px;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.6);
+  position: relative;
+}
+
+.loading-progress .loader-box {
+  transform: scale(0.7);
+}
+
+.loading-progress .caption {
+  background-color: rgba(0, 0, 0, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 7px 10px;
+  border-radius: 5px;
+  font-style: italic;
+  color: #eee;
+}
+
+/* Single-page loading indicator */
+.page-loading {
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
 }
 
 /* =========================================================
-   PAGE ARROWS (clean white like demo)
+   USER MESSAGE (error, etc.)
+   ========================================================= */
+.user-message {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.user-message .text {
+  border-radius: 5px;
+  padding: 7px 10px;
+}
+
+.user-message .error {
+  color: #ffd6db;
+  background-color: rgba(132, 32, 41, 0.85);
+  border: 1px solid rgba(245, 194, 199, 0.9);
+}
+
+/* =========================================================
+   PENDING PLAY (autoplay icon overlay)
+   ========================================================= */
+.pending-play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+}
+
+/* =========================================================
+   PREV / NEXT ARROWS
    ========================================================= */
 .ctrls .prev,
 .ctrls .next {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  color: #ffffff;
-  font-size: 34px;
+  color: #fff;
+  font-size: 32px;
   opacity: 0.7;
-  transition: opacity .25s ease;
+  transition: opacity 0.25s ease;
 }
 
-.ctrls .prev { left: 24px; }
-.ctrls .next { right: 24px; }
+.ctrls .prev {
+  left: 20px;
+}
+
+.ctrls .next {
+  right: 20px;
+}
 
 .ctrls .prev:hover,
 .ctrls .next:hover {
@@ -127,31 +248,35 @@ a.disabled, .cmd.disabled {
 }
 
 /* =========================================================
-   FLOATING TOOLBAR (CENTERED PILL LIKE LION MAGAZINE)
+   FLOATING TOOLBAR CONTAINER (TBOX)
+   -> we force it to the bottom of the browser window
+   ========================================================= */
+.tbox {
+  position: fixed !important;   /* override inline styles */
+  left: 0 !important;
+  bottom: 24px !important;      /* distance from bottom of viewport */
+  width: 100% !important;
+  text-align: center;
+  pointer-events: none;         /* only the bar itself is clickable */
+  z-index: 99998;
+}
+
+/* =========================================================
+   TOOLBAR (the actual bar)
    ========================================================= */
 .toolbar {
-  position: fixed !important;
-  bottom: 26px !important;
-  left: 50% !important;
-  transform: translateX(-50%) !important;
-
-  background: rgba(0,0,0,0.70) !important;
-  backdrop-filter: blur(6px);
-  border-radius: 999px;
-
-  height: 36px;
-  padding: 0 14px;
-
-  width: auto !important;
-  max-width: 90vw;
-
-  box-shadow: 0 10px 28px rgba(0,0,0,0.45);
-  border: none !important;
-
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  z-index: 999999;
+  height: 34px;
+  padding: 0 10px;
+  margin: 0 auto;
+  background: rgba(0, 0, 0, 0.75);
+  border-radius: 24px;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.6);
+  text-align: center;
+  border: none;
+  pointer-events: auto; /* clickable again */
 }
 
 .toolbar ul,
@@ -173,20 +298,33 @@ a.disabled, .cmd.disabled {
 
 .buttons > li > a,
 .buttons > li > .cmd {
-  padding: 6px 10px;
+  padding: 6px 8px;
   font-size: 13px;
   color: #eee;
-  opacity: 0.8;
-  transition: opacity .2s;
+  opacity: 0.85;
+  transition: opacity 0.2s ease, transform 0.1s ease;
 }
 
 .buttons > li > a:hover,
 .buttons > li > .cmd:hover {
   opacity: 1;
+  transform: translateY(-1px);
+}
+
+.buttons > li > a.active,
+.buttons > li > .cmd.active {
+  opacity: 1;
+}
+
+/* hide "More" dropdown arrow caret tweaks */
+.dropdown .caret,
+.dropup .caret {
+  border-top-color: #ccc;
+  border-bottom-color: #ccc;
 }
 
 /* =========================================================
-   PAGE NUMBER BOXES (minimal)
+   PAGE NUMBER FIELD
    ========================================================= */
 .pages {
   padding: 0 6px;
@@ -196,76 +334,210 @@ a.disabled, .cmd.disabled {
 
 .pages .number,
 .pages .amount {
-  width: 42px;
-  padding: 4px 0;
+  width: 38px;
+  padding: 3px 0;
   text-align: center;
-
   color: #fff;
-  background: rgba(255,255,255,0.08);
-  border: 1px solid rgba(255,255,255,0.15);
-  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 3px;
+  font-size: 12px;
+}
+
+.pages .number {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  border-right: none;
+}
+
+.pages .amount {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
 }
 
 .pages .number:focus {
-  background: rgba(255,255,255,0.18);
+  background: rgba(255, 255, 255, 0.2);
 }
 
 /* =========================================================
-   FLOAT WINDOWS (Search / TOC / Share)
-   DARK TRANSPARENT
+   FLOATING WINDOWS (TOC, SEARCH, SHARE)
    ========================================================= */
 .float-wnd {
-  background: rgba(0,0,0,0.75);
-  color: white;
-  box-shadow: 0 0 12px rgba(0,0,0,0.4);
-  border: none;
-}
-
-.float-wnd .head {
-  background: rgba(255,255,255,0.07);
-  border: none;
+  position: absolute;
+  border-radius: 4px 4px 0 0;
+  z-index: 100000;
+  background-color: rgba(0, 0, 0, 0.85);
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.6);
   color: #fff;
 }
 
+.float-wnd .head {
+  border-radius: 4px 4px 0 0;
+  cursor: move;
+  background-color: rgba(255, 255, 255, 0.05);
+  padding: 7px 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  font-weight: bold;
+}
+
+.float-wnd .head .close {
+  top: 5px;
+  right: 8px;
+  position: absolute;
+}
+
 .float-wnd .body {
-  background: rgba(0,0,0,0.55);
-  border: none;
+  padding: 10px;
+}
+
+/* TOC specific */
+.toc {
+  top: 40px;
+  left: 40px;
+  width: 320px;
+}
+
+.h-menu {
+  list-style: none;
+  margin: 0 0 10px;
+  padding: 0;
+}
+
+.h-menu > li {
+  display: inline-flex;
+}
+
+.h-menu > li > a,
+.h-menu > li > .cmd {
+  padding-right: 10px;
+  color: #fff;
+}
+
+/* TOC scroll area */
+.tocview {
+  max-height: calc(100vh - 200px);
+  overflow-y: auto;
+  overflow-x: hidden;
+  margin-bottom: 10px;
+}
+
+.tocview::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+.tocview::-webkit-scrollbar-thumb {
+  background: #555;
+  border-radius: 3px;
+}
+.tocview::-webkit-scrollbar-track {
+  background: #222;
+}
+
+/* Bookmarks */
+.bookmarks .area:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+.bookmarks .cmd {
+  color: #fff;
+}
+
+/* =========================================================
+   SHARE WINDOW
+   ========================================================= */
+.share {
+  top: 50%;
+  left: 50%;
+  width: 320px;
+  transform: translate(-50%, -50%);
+}
+
+.shareview {
+  padding: 10px;
+}
+
+.share .link {
+  padding: 5px;
+  font-size: 12px;
+  border-radius: 2px;
+  margin-bottom: 5px;
+  word-break: break-all;
+  background: rgba(0, 0, 0, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.share .btns {
+  text-align: center;
+}
+
+.share .btn {
+  display: inline-flex;
+  padding: 10px;
 }
 
 /* =========================================================
    THUMBNAILS
    ========================================================= */
+.thumbnails {
+  text-align: center;
+}
+
+.thumbnails .thumbnail {
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.thumbnails .item {
+  display: inline-block;
+  width: 130px;
+  padding: 5px;
+  transition: background-color 0.1s ease-in;
+}
+
 .thumbnails .item:hover {
-  background: rgba(255,255,255,0.05);
+  background-color: rgba(255, 255, 255, 0.05);
 }
 
 /* =========================================================
-   PROGRESS BAR (thin red)
+   SEARCH
    ========================================================= */
-.fb3d-progress {
-  height: 3px !important;
-  background: rgba(255,255,255,0.15);
+.search {
+  padding: 0 10px;
 }
 
-.fb3d-progress-value {
-  background: #d23a3a !important;
+.search .inpQuery {
+  padding: 3px;
 }
 
-/* =========================================================
-   SEARCH RESULTS / TOC / BOOKMARKS
-   ========================================================= */
+.search .results {
+  margin-bottom: 10px;
+}
+
 .search .result {
-  background: rgba(255,255,255,0.03);
+  padding: 5px 10px;
+  cursor: pointer;
+  font-size: 12px;
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.02);
+  transition: background-color 0.1s ease-in;
+}
+
+.search .result:last-child {
+  border-bottom: none;
 }
 
 .search .result:hover {
-  background: rgba(255,255,255,0.08);
+  background-color: rgba(255, 255, 255, 0.08);
 }
 
-.bookmarks .area:hover {
-  background: rgba(255,255,255,0.08);
+/* =========================================================
+   PAGE PROGRESS STRIP (thin line under bar)
+   ========================================================= */
+.fb3d-progress {
+  height: 3px !important;
+  background: rgba(255, 255, 255, 0.12);
 }
 
-.bookmarks .cmd {
-  color: #fff;
+.fb3d-progress-value {
+  background: #d23a3a !important; /* red indicator */
 }
